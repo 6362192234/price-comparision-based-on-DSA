@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Flowchart - Data Structures</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            background-color: #0e1117;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 600px;
+        }
+        .flowchart-container {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 1000px;
+            overflow: auto;
+        }
+        /* Custom tooltip styling logic would go here if not native to mermaid */
+    </style>
+</head>
+<body>
+
+    <h1>System Architecture Flow</h1>
+    <p>Visualizing how different data structures interact to fulfill system requirements.</p>
+
+    <div class="flowchart-container">
+        <div class="mermaid">
+            %%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#3b82f6', 'edgeLabelBackground':'#1e293b', 'tertiaryColor': '#1e293b'}}}%%
+            flowchart TD
+                User([User Request]) -->|Enters Queue| Q(Queue: Request Processing)
+                
+                subgraph Core_Logic [Core System Logic]
+                    direction TBS
+                    Q -->|Next Request| T(Tree: Prefix Search)
+                    T -->|Match Found| HM(HashMap: Product Details)
+                    HM -->|Get Prices| MH(Min-Heap: Lowest Price Impl.)
+                    
+                    MH -->|Show Results| RES[Result Display]
+                    
+                    RES -->|View Alternatives| G(Graph: Recommendations)
+                    RES -->|Compare/Undo| S(Stack: History/Undo)
+                end
+                
+                G --> RES
+                S --> RES
+                
+                click Q callback "<b>Queue</b><br>Manages sequential user requests to maintain order."
+                click T callback "<b>Tree / Trie</b><br>Supports efficient search and prefix-based product matching."
+                click HM callback "<b>Hash Map</b><br>Fast lookup of product details based on names."
+                click MH callback "<b>Min-Heap</b><br>Identifies the lowest-priced seller efficiently."
+                click G callback "<b>Graph</b><br>Represents product similarity for recommendations."
+                click S callback "<b>Stack</b><br>Stores recently compared products for quick access."
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            securityLevel: 'loose',
+        });
+    </script>
+
+</body>
+</html>
